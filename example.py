@@ -1,8 +1,10 @@
 #!/usr/bin/env python
-
+# coding=utf-8
 
 import time
 import sys
+import mysql.connector
+
 
 EMULATE_HX711=False
 
@@ -19,7 +21,8 @@ def cleanAndExit():
 
     if not EMULATE_HX711:
         GPIO.cleanup()
-
+        
+        
     print("Bye!")
     sys.exit()
 
@@ -30,7 +33,6 @@ hx.set_reading_format("MSB", "MSB")
 
 hx.set_reference_unit(-102)
 #hx.set_reference_unit(referenceUnit)
-
 hx.reset()
 
 hx.tare()
@@ -39,6 +41,7 @@ print("Tare done! Add weight now...")
 
 #hx.tare_A()
 #hx.tare_B()
+        
 
 while True:
     try:
@@ -54,8 +57,7 @@ while True:
         hx.power_down()
         hx.power_up()
         time.sleep(0.1)
-        
-
 
     except (KeyboardInterrupt, SystemExit):
-        cleanAndExit()
+        cleanAndExit() 
+
